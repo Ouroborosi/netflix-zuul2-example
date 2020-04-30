@@ -17,6 +17,8 @@
 package com.netflix.zuul;
 
 import com.google.inject.AbstractModule;
+import com.netflix.appinfo.EurekaInstanceConfig;
+import com.netflix.appinfo.MyDataCenterInstanceConfig;
 import com.netflix.discovery.AbstractDiscoveryClientOptionalArgs;
 import com.netflix.discovery.DiscoveryClient;
 import com.netflix.netty.common.accesslog.AccessLogPublisher;
@@ -39,6 +41,10 @@ import com.netflix.zuul.stats.RequestMetricsPublisher;
 public class ZuulSampleModule extends AbstractModule {
     @Override
     protected void configure() {
+
+        // eureka configuration
+        bind(EurekaInstanceConfig.class).to(MyDataCenterInstanceConfig.class);
+
         // sample specific bindings
         bind(BaseServerStartup.class).to(SampleServerStartup.class);
 
